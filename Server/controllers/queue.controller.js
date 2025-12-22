@@ -8,22 +8,23 @@ class QueueController {
     this.analytics = new AnalyticsService();
   }
 
+  // JOIN QUEUE
   joinQueue = async (req, res) => {
     try {
-      const { id, name, partySize, eventDate } = req.body;
+      const { id, name, partySize, email, eventDate } = req.body;
 
-      if (!eventDate) {
-        return res.status(400).json({ error: "Event date is required" });
+      if (!email || !eventDate) {
+        return res.status(400).json({ error: "Email and event date are required" });
       }
 
-      // 🔥 Set expiry to end of event day
       const expiryDate = new Date(eventDate);
-      expiryDate.setHours(23, 59, 59, 999);
+      expiryDate.setHours(23, 59, 59, 999); // Delete at end of event day
 
       const customer = await Customer.create({
         customerId: id,
         name,
         partySize,
+        email,
         eventDate,
         expiresAt: expiryDate
       });
@@ -37,17 +38,17 @@ class QueueController {
     }
   };
 
+  // GET QUEUE
   getQueue = async (req, res) => {
     try {
-      const queue = await Customer.find({ status: "WAITING" }).sort({
-        createdAt: 1
-      });
+      const queue = await Customer.find({ status: "WAITING" }).sort({ createdAt: 1 });
       res.json(queue);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   };
 
+  // SEAT NEXT CUSTOMER
   seatNext = async (req, res) => {
     try {
       const customer = await Customer.findOneAndUpdate(
@@ -56,9 +57,7 @@ class QueueController {
         { sort: { createdAt: 1 }, new: true }
       );
 
-      if (!customer) {
-        return res.json({ message: "Queue is empty" });
-      }
+      if (!customer) return res.json({ message: "Queue is empty" });
 
       this.notifier.send(customer, "Your table is ready");
       this.analytics.log("CUSTOMER_SEATED");
