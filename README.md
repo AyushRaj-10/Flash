@@ -65,29 +65,18 @@ Flash/
 │   └── server.js                    # Main server file
 │
 ├── frontend/               # Customer & Staff Frontend (React + Vite)
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── HomePage.jsx          # Landing page
-│   │   │   ├── CustomerInterface.jsx # Customer queue interface
-│   │   │   ├── StaffDashboard.jsx    # Staff management dashboard
-│   │   │   └── AnalyticsDashboard.jsx # Analytics dashboard
-│   │   ├── utils/
-│   │   │   ├── api.js                # API client functions
-│   │   │   └── websocket.js          # WebSocket client (Socket.IO)
-│   │   ├── App.jsx                   # Main app component with routing
-│   │   └── index.css                 # Global styles
-│   ├── vite.config.js                # Vite configuration
-│   └── package.json
-│
-└── Admin/                  # Admin Frontend (React + Vite)
     ├── src/
-    │   ├── components/
-    │   │   └── AdminQueue.jsx        # Admin queue management component
-    │   ├── context/
-    │   │   └── QueueContext.jsx      # React context for queue state
-    │   ├── App.jsx
-    │   └── main.jsx
-    ├── vite.config.js
+    │   ├── pages/
+    │   │   ├── HomePage.jsx          # Landing page
+    │   │   ├── CustomerInterface.jsx # Customer queue interface
+    │   │   ├── StaffDashboard.jsx    # Staff management dashboard
+    │   │   └── AnalyticsDashboard.jsx # Analytics dashboard
+    │   ├── utils/
+    │   │   ├── api.js                # API client functions
+    │   │   └── websocket.js          # WebSocket client (Socket.IO)
+    │   ├── App.jsx                   # Main app component with routing
+    │   └── index.css                 # Global styles
+    ├── vite.config.js                # Vite configuration
     └── package.json
 ```
 
@@ -119,11 +108,6 @@ Flash/
    npm install
    ```
 
-4. **Install Admin Dependencies**
-   ```bash
-   cd ../Admin
-   npm install
-   ```
 
 ### Environment Setup
 
@@ -161,19 +145,12 @@ EMAIL_PASS=your-app-password
    ```
    The frontend will run on `http://localhost:5173`
 
-3. **Start the Admin Interface**
-   ```bash
-   cd Admin
-   npm run dev
-   ```
-   The admin interface will run on `http://localhost:5174`
 
-4. **Access the Application**
+3. **Access the Application**
    - **Home Page**: http://localhost:5173/
    - **Customer Interface**: http://localhost:5173/queue/join
    - **Staff Dashboard**: http://localhost:5173/staff/dashboard
    - **Analytics Dashboard**: http://localhost:5173/staff/analytics
-   - **Admin Interface**: http://localhost:5174
 
 ## 📡 API Endpoints
 
@@ -394,7 +371,6 @@ The Analytics Dashboard provides:
 
 1. **Backend**: Add controllers in `Server/controllers/`, routes in `Server/routes/`
 2. **Frontend**: Add pages in `frontend/src/pages/`, update routing in `App.jsx`
-3. **Admin**: Update components in `Admin/src/components/`, context in `Admin/src/context/`
 
 ### Code Style
 
