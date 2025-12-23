@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 
-const customerSchema = new mongoose.Schema(
+const CustomerSchema = new mongoose.Schema(
   {
-    customerId: { type: String, required: true },
+    customerId: { type: String, required: true, unique: true },
     name: { type: String, required: true },
     partySize: { type: Number, required: true },
-    email: { type: String, required: true },       // NEW
+    email: { type: String, required: true },
     status: { type: String, enum: ["WAITING", "SEATED"], default: "WAITING" },
-    eventDate: { type: Date, required: true },
-    expiresAt: { type: Date, required: true, index: { expireAfterSeconds: 0 } }  // TTL
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Customer", customerSchema);
+export default mongoose.model("Customer", CustomerSchema);
